@@ -2,6 +2,11 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "nextweb",
   "compatibility_date": "2026-07-29",
+  "main": ".worker-next/index.js",
+  "assets": {
+    "directory": ".worker-next/assets",
+    "binding": "ASSETS"
+  },
   "observability": {
     "enabled": true
   },
