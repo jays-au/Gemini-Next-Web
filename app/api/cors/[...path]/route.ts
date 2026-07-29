@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 async function handle(
   req: NextRequest,
-  { params }: { params: { path: string[] } },
+  { params }: { params: Promise<{ path: string[] }> },
 ) {
   if (req.method === "OPTIONS") {
     return NextResponse.json({ body: "OK" }, { status: 200 });
   }
 
-  const [protocol, ...subpath] = params.path;
+  const resolvedParams = await params;
+  const [protocol, ...subpath] = resolvedParams.path;
   const targetUrl = `${protocol}://${subpath.join("/")}`;
 
   const method = req.headers.get("method") ?? undefined;
